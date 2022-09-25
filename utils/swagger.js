@@ -4,9 +4,9 @@ module.exports = swaggerJsDoc({
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Jungle Meet Apis Documentation',
+      title: 'Fun Cool Apis Documentation',
       version: '1.0.0',
-      description: 'This is the API documentation for JungleMeet Queuing',
+      description: 'This is the API documentation for Fun Cool Queuing',
     },
   },
   apis: ['controllers/*.js'],
