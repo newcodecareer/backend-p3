@@ -3,6 +3,6 @@ const { createNewCustomer } = require('../controllers/customer');
 
 const customerRouter = Router();
 
-customerRouter.post('/create-customer', createNewCustomer);
+customerRouter.post('/customer', createNewCustomer);
 
 module.exports = customerRouter;
