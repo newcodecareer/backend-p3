@@ -5,14 +5,14 @@ const createNewCustomer = async (req, res) => {
   const { firstName, lastName, email, phoneNumber, address, password } = req.body;
 
   try {
-    const newCustomer = await Customer(
+    const newCustomer = await Customer({
       firstName,
       lastName,
       email,
       phoneNumber,
       address,
-      password
-    ).save();
+      password,
+    }).save();
     return res.status(StatusCodes.OK).json(newCustomer);
   } catch (err) {
     return res.status(StatusCodes.NOT_IMPLEMENTED).json(err);
@@ -29,7 +29,18 @@ const getCustomerById = async (req, res) => {
   }
 };
 
+const updateCustomerById = async (req, res) => {
+  const { id } = req.param;
+  try {
+    const updateCustomer = await Customer.findOneAndUpdate({ _id: id }, req.body);
+    return res.status(StatusCodes.OK).json(updateCustomer);
+  } catch (err) {
+    return res.status(StatusCodes.NOT_FOUND).json(err);
+  }
+};
+
 module.exports = {
   createNewCustomer,
   getCustomerById,
+  updateCustomerById,
 };
