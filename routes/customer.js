@@ -7,7 +7,7 @@ const {
 
 const customerRouter = Router();
 
-customerRouter.get('/customer/:id', getCustomerById);
-customerRouter.post('/customer', createNewCustomer);
-customerRouter.put('/customer/:id', updateCustomerById);
+customerRouter.get('/:id', getCustomerById);
+customerRouter.post('/', createNewCustomer);
+customerRouter.put('/:id', updateCustomerById);
 module.exports = customerRouter;
