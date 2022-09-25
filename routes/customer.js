@@ -1,8 +1,9 @@
 const { Router } = require('express');
-const { createNewCustomer } = require('../controllers/customer');
+const { createNewCustomer, getCustomerById } = require('../controllers/customer');
 
 const customerRouter = Router();
 
+customerRouter.get('/customer/:id', getCustomerById);
 customerRouter.post('/create-customer', createNewCustomer);
 
 module.exports = customerRouter;

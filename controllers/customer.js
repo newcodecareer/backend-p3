@@ -19,6 +19,17 @@ const createNewCustomer = async (req, res) => {
   }
 };
 
+const getCustomerById = async (req, res) => {
+  const { id } = req.param;
+  try {
+    const customer = await Customer.findById(id);
+    return res.status(StatusCodes.OK).json(customer);
+  } catch (err) {
+    return res.status(StatusCodes.NOT_FOUND).json(err);
+  }
+};
+
 module.exports = {
   createNewCustomer,
+  getCustomerById,
 };
