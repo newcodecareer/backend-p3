@@ -3,11 +3,17 @@ const {
   createNewCustomer,
   getCustomerById,
   updateCustomerById,
+  // updateCustomerDetailsById,
+  // updateCustomerPasswordById,
+  getAllCustomers,
 } = require('../controllers/customer');
 
 const customerRouter = Router();
 
+customerRouter.get('/', getAllCustomers);
 customerRouter.get('/:id', getCustomerById);
 customerRouter.post('/', createNewCustomer);
-customerRouter.put('/:id', updateCustomerById);
+// customerRouter.put('/:id', updateCustomerById);
+customerRouter.patch('/:id', updateCustomerById);
+
 module.exports = customerRouter;
