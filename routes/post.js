@@ -6,6 +6,6 @@ const postRouter = Router();
 
 postRouter.get('/:id', getPostById);
 postRouter.post('/', createNewPost);
-postRouter.put('/:id', updatePostById);
+postRouter.patch('/:id', updatePostById);
 
 module.exports = postRouter;
