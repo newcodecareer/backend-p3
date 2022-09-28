@@ -37,7 +37,7 @@ const CustomerSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, 'Please input your password'],
-    unique: true,
+    trim: true,
     minLength: 8,
     maxLength: 50,
   },
