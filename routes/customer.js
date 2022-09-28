@@ -1,10 +1,9 @@
 const { Router } = require('express');
+
 const {
   createNewCustomer,
   getCustomerById,
   updateCustomerById,
-  // updateCustomerDetailsById,
-  // updateCustomerPasswordById,
   getAllCustomers,
 } = require('../controllers/customer');
 
