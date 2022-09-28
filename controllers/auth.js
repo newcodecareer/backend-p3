@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const Customer = require('../models/Customer');
 
+
 // Create token
 const generateToken = (id, email) =>
   jwt.sign({ id, email }, process.env.JWT_SECRET, { expiresIn: '2h' });

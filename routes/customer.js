@@ -6,6 +6,7 @@ const {
   updateCustomerById,
   getAllCustomers,
   deleteCustomerById,
+
 } = require('../controllers/customer');
 
 const customerRouter = Router();
