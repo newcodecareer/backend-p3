@@ -24,22 +24,23 @@ const CustomerSchema = new mongoose.Schema({
   },
   phoneNumber: {
     type: String,
-    required: [true, 'Please provide phone number'],
+    // required: [true, 'Please provide phone number'],
     trim: true,
     minLength: 10,
     maxLength: 15,
   },
   address: {
     type: String,
-    required: [true, 'Please provide address'],
+    // required: [true, 'Please provide address'],
     trim: true,
+    minLength: 10,
+    maxLength: 100,
   },
   password: {
     type: String,
     required: [true, 'Please input your password'],
-    unique: true,
+    trim: true,
     minLength: 8,
-    maxLength: 50,
   },
 });
 
