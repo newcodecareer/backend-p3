@@ -71,6 +71,7 @@ const updateCustomerById = async (req, res) => {
   }
 };
 
+
 const deleteCustomerById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -80,6 +81,7 @@ const deleteCustomerById = async (req, res) => {
     return res.status(StatusCodes.NOT_FOUND).json(err);
   }
 };
+
 
 module.exports = {
   createNewCustomer,
