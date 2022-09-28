@@ -44,6 +44,7 @@ const getCustomerById = async (req, res) => {
   }
 };
 
+
 // PUT: update entire data for customer
 // const updateCustomerById = async (req, res) => {
 //   const { id } = req.params;
@@ -70,6 +71,7 @@ const updateCustomerById = async (req, res) => {
     return res.status(StatusCodes.NOT_FOUND).json(err);
   }
 };
+
 
 const deleteCustomerById = async (req, res) => {
   const { id } = req.params;
