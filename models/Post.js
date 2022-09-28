@@ -78,6 +78,27 @@ const PostSchema = new mongoose.Schema({
     minLength: 1,
     maxLength: 10,
   },
+  status: {
+    type: String,
+    required: [true, 'This field is required'],
+    trim: true,
+    minLength: 1,
+    maxLength: 10,
+  },
+  tradieId: {
+    type: String,
+    required: [true, 'This field is required'],
+    trim: true,
+    minLength: 1,
+    maxLength: 10,
+  },
+  comments: {
+    type: String,
+    required: [true, 'This field is required'],
+    trim: true,
+    minLength: 1,
+    maxLength: 10,
+  },
 });
 
 module.exports = mongoose.model('Post', PostSchema);

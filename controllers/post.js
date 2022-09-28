@@ -14,6 +14,9 @@ const createNewPost = async (req, res) => {
     suburb,
     details,
     budget,
+    status,
+    tradieId,
+    comments,
   } = req.body;
 
   try {
@@ -29,6 +32,9 @@ const createNewPost = async (req, res) => {
       suburb,
       details,
       budget,
+      status,
+      tradieId,
+      comments,
     }).save();
 
     return res.status(StatusCodes.OK).json(newPost);
