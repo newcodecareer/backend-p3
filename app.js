@@ -9,6 +9,7 @@ const connectDB = require('./db/connect');
 const swaggerJsDoc = require('./utils/swagger');
 
 const v1Router = require('./routes');
+const skillsRouter = require('./routes/skilllist');
 
 const app = express();
 
@@ -20,7 +21,8 @@ app.use(xss());
 
 // routes
 app.use('/v1', v1Router);
-
+//testing skilllist route
+app.use('/v1/skilllist', skillsRouter);
 // health check api
 app.get('/health-check', (request, response) => response.status(200).send({ message: 'healthy' }));
 
