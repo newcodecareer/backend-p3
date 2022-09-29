@@ -12,6 +12,6 @@ v1Router.use('/customers', customerRouter);
 v1Router.use('/auth', authRouter);
 v1Router.use('/posts', postRouter);
 
-v1Router.use('/comment', commentRouter);
+v1Router.use('/comments', commentRouter);
 
 module.exports = v1Router;
