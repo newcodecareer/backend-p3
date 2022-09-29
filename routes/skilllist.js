@@ -3,6 +3,6 @@ const { createNewSkilllist } = require('../controllers/skilllist');
 
 const skilllistRouter = Router();
 
-skilllistRouter.post('/skilllist', createNewSkilllist);
+skilllistRouter.post('/', createNewSkilllist);
 
 module.exports = skilllistRouter;

@@ -2,7 +2,6 @@ const express = require('express');
 const userRouter = require('./user');
 const customerRouter = require('./customer');
 const authRouter = require('./auth');
-
 const commentRouter = require('./comment');
 const skilllistRouter = require('./skilllist');
 
@@ -14,6 +13,6 @@ v1Router.use('/auth', authRouter);
 
 
 v1Router.use('/comment', commentRouter);
-v1Router.use('./skilllist', skilllistRouter);
+v1Router.use('/skilllists', skilllistRouter);
 
 module.exports = v1Router;

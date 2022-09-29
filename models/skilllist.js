@@ -14,37 +14,36 @@ const SkilllistSchema = new mongoose.Schema({
         'Plumbing',
         'Removal',
         'Rubbish Removal'],
-        required: [true, 'Please select category'],
+        required: true
     },
     Listtitle:{
         type : String,
-        required: [true, 'Please enter a title'],
         minLength: 5,
         maxLength: 50,
         trim: true,
+        required: true
     },
     Listdescription: {
         type: String,
-        required: [true, 'Please provide your list description'],
-        minLength: 50,
+        minLength: 5,
         trim: true,
+        required: true
     },
 
     Listprice: {
         type : Number,
-        required: [true, 'Please set the price'],
+        required: true
     }, 
 
     Listdistance: {
-        type : Number,
-        required: [true, 'Please enter the distance'],
+        type : Number
     },
 
     Listavaliability: {
         type: String,
-        required: [true, 'Please provide your avaliability'],
-        minLength: 20,
+        minLength: 5,
         trim: true,
+        required: true
     } 
 
 
