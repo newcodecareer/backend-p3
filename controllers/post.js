@@ -65,8 +65,20 @@ const updatePostById = async (req, res) => {
   }
 };
 
+// delete customerPost by ID
+const deletePostById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deletePost = await Post.findOneAndDelete({ _id: id });
+    return res.status(StatusCodes.OK).json(deletePost);
+  } catch (err) {
+    return res.status(StatusCodes.NOT_FOUND).json(err);
+  }
+};
+
 module.exports = {
   createNewPost,
   getPostById,
   updatePostById,
+  deletePostById,
 };
