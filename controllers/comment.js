@@ -16,6 +16,31 @@ const createNewComment = async (req, res) => {
   }
 };
 
+const getCommentById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const comment = await Comment.findById(id);
+
+    return res.status(StatusCodes.OK).json(comment);
+  } catch (err) {
+    return res.status(StatusCodes.NOT_FOUND).json(err);
+  }
+};
+
+const updateCommentById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const updateComment = await Comment.findOneAndUpdate({ _id: id }, req.body);
+    return res.status(StatusCodes.OK).json(updateComment);
+  } catch (err) {
+    return res.status(StatusCodes.NOT_FOUND).json(err);
+  }
+};
+
 module.exports = {
   createNewComment,
+  getCommentById,
+  updateCommentById,
 };
