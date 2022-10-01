@@ -17,7 +17,7 @@ const createNewComment = async (req, res) => {
   }
 };
 
-// delete comment by id 
+// delete comment by id
 
 const deleteCommentById = async (req, res) => {
   const { id } = req.params;
@@ -29,7 +29,21 @@ const deleteCommentById = async (req, res) => {
   }
 };
 
+// get comment by id
+const getCommentById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const comment = await Comment.findById(id);
+
+    return res.status(StatusCodes.OK).json(comment);
+  } catch (err) {
+    return res.status(StatusCodes.NOT_FOUND).json(err);
+  }
+};
+
 module.exports = {
   createNewComment,
   deleteCommentById,
+  getCommentById,
 };
