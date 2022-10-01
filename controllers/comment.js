@@ -42,8 +42,20 @@ const getCommentById = async (req, res) => {
   }
 };
 
+// update comment by id
+const updateCommentById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const updateComment = await Comment.findOneAndUpdate({ _id: id }, req.body);
+    return res.status(StatusCodes.OK).json(updateComment);
+  } catch (err) {
+    return res.status(StatusCodes.NOT_FOUND).json(err);
+  }
+};
+
 module.exports = {
   createNewComment,
   deleteCommentById,
   getCommentById,
+  updateCommentById,
 };
