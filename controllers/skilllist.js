@@ -55,8 +55,24 @@ const getNewskills = async (req, res) => {
   }
 };
 
+const deleteSkillslist = async (req, res) => {
+  try {
+    await Skilllist.findByIdAndDelete(req.params.id);
+    res.status(204).json({
+      status: 'success',
+      data: null,
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err,
+    });
+  }
+};
+
 module.exports = {
   createNewSkilllist,
   getALLNewskills,
   getNewskills,
+  deleteSkillslist,
 };
