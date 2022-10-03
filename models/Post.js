@@ -5,6 +5,7 @@ const PostSchema = new mongoose.Schema(
     authorId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Customer',
+      required: true,
     },
     title: {
       type: String,
@@ -42,8 +43,8 @@ const PostSchema = new mongoose.Schema(
       default: 'OPEN',
     },
     tradieId: {
-      type: String,
-      default: 'UNASSIGNED',
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Customer',
     },
   },
   { timestamps: true }

@@ -59,6 +59,7 @@ const signin = async (req, res) => {
       const token = generateToken(customer.id, email);
       // Save user token
       customer.token = token;
+
       return res.status(StatusCodes.OK).json({ customer, token });
     }
     return res.status(StatusCodes.CONFLICT).json({ error: 'Invalid Credentials' });

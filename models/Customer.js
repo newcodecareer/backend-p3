@@ -6,14 +6,14 @@ const CustomerSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Please provide first name'],
       trim: true,
-      minLength: 3,
+      minLength: 2,
       maxLength: 50,
     },
     lastName: {
       type: String,
       required: [true, 'Please provide last name'],
       trim: true,
-      minLength: 3,
+      minLength: 2,
       maxLength: 50,
     },
     email: {
