@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const {
   createNewSkilllist,
-  getALLNewskills,
+  getAllNewskills,
   getNewskills,
   deleteSkillslist,
 } = require('../controllers/skilllist');
@@ -9,7 +9,7 @@ const {
 const skilllistRouter = Router();
 
 skilllistRouter.post('/', createNewSkilllist);
-skilllistRouter.get('/', getALLNewskills);
+skilllistRouter.get('/', getAllNewskills);
 skilllistRouter.get('/:id', getNewskills);
 skilllistRouter.delete('/:id', deleteSkillslist);
 
