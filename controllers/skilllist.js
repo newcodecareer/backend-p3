@@ -1,35 +1,36 @@
 const { StatusCodes } = require('http-status-codes');
-const Skilllist = require('../models/Skilllist');
+const skillList = require('../models/skillList');
 
 //POST - create new skill list
 
-const createNewSkilllist = async (req, res) => {
-  const { Listcategory, Listtitle, Listdescription, Listprice, Listdistance, Listavaliability } =
+
+const createNewSkillList = async (req, res) => {
+  const { category, title, description, price, distance, avaliability } =
     req.body;
 
   try {
-    const NewSkilllist = await Skilllist({
-      Listcategory,
-      Listtitle,
-      Listdescription,
-      Listprice,
-      Listdistance,
-      Listavaliability,
+    const newSkillList = await skillList({
+      category,
+      title,
+      description,
+      price,
+      distance,
+      avaliability,
     }).save();
 
-    return res.status(StatusCodes.OK).json(NewSkilllist);
+    return res.status(StatusCodes.OK).json(newSkillList);
   } catch (err) {
     return res.status(StatusCodes.NOT_IMPLEMENTED).json(err);
   }
 };
 
-const getAllNewskills = async (req, res) => {
+const getAllNewSkillList = async (req, res) => {
   try {
-    const skilllist = await Skilllist.find();
+    const skillList = await skillList.find();
     res.status(200).json({
       status: 'success',
       data: {
-        skilllist,
+        skillList,
       },
     });
   } catch (err) {
@@ -40,13 +41,13 @@ const getAllNewskills = async (req, res) => {
   }
 };
 
-const getNewskills = async (req, res) => {
+const getNewSkillList = async (req, res) => {
   try {
-    const Skilllists = await Skilllist.findById(req.params.id);
+    const skillLists = await skillList.findById(req.params.id);
     res.status(200).json({
       status: 'success',
       data: {
-        Skilllists,
+        skillLists,
       },
     });
   } catch (err) {
@@ -57,9 +58,9 @@ const getNewskills = async (req, res) => {
   }
 };
 
-const deleteSkillslist = async (req, res) => {
+const deleteSkillList = async (req, res) => {
   try {
-    await Skilllist.findByIdAndDelete(req.params.id);
+    await skillList.findByIdAndDelete(req.params.id);
     res.status(204).json({
       status: 'success',
       data: null,
@@ -72,28 +73,28 @@ const deleteSkillslist = async (req, res) => {
   }
 };
 
-const updateSkilllistById = async (req, res) => {
+const updateSkillListById = async (req, res) => {
   const { id } = req.params;
-  const { Listcategory, Listtitle, Listdescription, Listprice, Listdistance, Listavaliability } =
+  const { category, title, description, price, distance, avaliability } =
     req.body;
 
   try {
-    const updatedSkilllist = await Skilllist.findOneAndUpdate(
+    const updatedSkillList = await skillList.findOneAndUpdate(
       { _id: id },
-      { Listcategory, Listtitle, Listdescription, Listprice, Listdistance, Listavaliability },
+      { category, title, description, price, distance, avaliability },
       { new: true }
     );
 
-    return res.status(StatusCodes.OK).json(updatedSkilllist);
+    return res.status(StatusCodes.OK).json(updatedSkillList);
   } catch (err) {
     return res.status(StatusCodes.NOT_FOUND).json(err);
   }
 };
 
 module.exports = {
-  createNewSkilllist,
-  getAllNewskills,
-  getNewskills,
-  deleteSkillslist,
-  updateSkilllistById,
+  createNewSkillList,
+  getAllNewSkillList,
+  getNewSkillList,
+  deleteSkillList,
+  updateSkillListById,
 };

@@ -1,18 +1,18 @@
 const { Router } = require('express');
 const {
-  createNewSkilllist,
-  getAllNewskills,
-  getNewskills,
-  deleteSkillslist,
-  updateSkilllistById,
-} = require('../controllers/skilllist');
+  createNewSkillList,
+  getAllNewSkillList,
+  getNewSkillList,
+  deleteSkillList,
+  updateSkillListById,
+} = require('../controllers/skillList');
 
-const skilllistRouter = Router();
+const skillListRouter = Router();
 
-skilllistRouter.post('/', createNewSkilllist);
-skilllistRouter.get('/', getAllNewskills);
-skilllistRouter.get('/:id', getNewskills);
-skilllistRouter.delete('/:id', deleteSkillslist);
-skilllistRouter.patch('/:id', updateSkilllistById);
+skillListRouter.post('/', createNewSkillList);
+skillListRouter.get('/', getAllNewSkillList);
+skillListRouter.get('/:id', getNewSkillList);
+skillListRouter.delete('/:id', deleteSkillList);
+skillListRouter.patch('/:id', updateSkillListById);
 
-module.exports = skilllistRouter;
+module.exports = skillListRouter;

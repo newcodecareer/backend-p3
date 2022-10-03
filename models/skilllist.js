@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const SkilllistSchema = new mongoose.Schema({
-    Listcategory: {
+const skillListSchema = new mongoose.Schema({
+    category: {
         type: String,
         enum: [
         'Electric',
@@ -16,30 +16,30 @@ const SkilllistSchema = new mongoose.Schema({
         'Rubbish Removal'],
         required: true
     },
-    Listtitle:{
+    title:{
         type : String,
         minLength: 5,
         maxLength: 50,
         trim: true,
         required: true
     },
-    Listdescription: {
+    description: {
         type: String,
         minLength: 5,
         trim: true,
         required: true
     },
 
-    Listprice: {
+    price: {
         type : Number,
         required: true
     }, 
 
-    Listdistance: {
+    distance: {
         type : Number
     },
 
-    Listavaliability: {
+    avaliability: {
         type: String,
         minLength: 5,
         trim: true,
@@ -49,4 +49,4 @@ const SkilllistSchema = new mongoose.Schema({
 
 })
 
-module.exports = mongoose.model('Skilllist', SkilllistSchema);
+module.exports = mongoose.model('skillList', skillListSchema);
