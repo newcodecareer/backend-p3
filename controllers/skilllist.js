@@ -21,7 +21,7 @@ const createNewSkilllist = async (req, res) => {
   }
 };
 
-const getALLNewskills = async (req, res) => {
+const getAllNewskills = async (req, res) => {
   try {
     const skilllist = await Skilllist.find();
     res.status(200).json({
@@ -57,6 +57,6 @@ const getNewskills = async (req, res) => {
 
 module.exports = {
   createNewSkilllist,
-  getALLNewskills,
+  getAllNewskills,
   getNewskills,
 };
