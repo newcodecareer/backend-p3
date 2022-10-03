@@ -3,7 +3,7 @@ const Post = require('../models/Post');
 
 const createNewPost = async (req, res) => {
   try {
-    const { authorId, title, onDate, location, details, budget } = req.body;
+    const { authorId, title, onDate, location, details, budget, tradieId } = req.body;
 
     const newPost = await Post({
       authorId,
@@ -12,6 +12,7 @@ const createNewPost = async (req, res) => {
       location,
       details,
       budget,
+      tradieId,
     }).save();
 
     return res.status(StatusCodes.OK).json(newPost);
