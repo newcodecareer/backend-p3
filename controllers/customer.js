@@ -7,14 +7,14 @@ const createNewCustomer = async (req, res) => {
   const { firstName, lastName, email, phoneNumber, address, password } = req.body;
 
   try {
-    const newCustomer = await Customer(
+    const newCustomer = await Customer({
       firstName,
       lastName,
       email,
       phoneNumber,
       address,
-      password
-    ).save();
+      password,
+    }).save();
     return res.status(StatusCodes.OK).json(newCustomer);
   } catch (err) {
     return res.status(StatusCodes.NOT_IMPLEMENTED).json(err);

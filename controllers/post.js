@@ -2,39 +2,17 @@ const { StatusCodes } = require('http-status-codes');
 const Post = require('../models/Post');
 
 const createNewPost = async (req, res) => {
-  const {
-    customerId,
-    title,
-    onDate,
-    beforeDate,
-    flexibleDate,
-    inPerson,
-    online,
-    country,
-    suburb,
-    details,
-    budget,
-    status,
-    tradieId,
-    comments,
-  } = req.body;
-
   try {
+    const { authorId, title, onDate, location, details, budget, tradieId } = req.body;
+
     const newPost = await Post({
-      customerId,
+      authorId,
       title,
       onDate,
-      beforeDate,
-      flexibleDate,
-      inPerson,
-      online,
-      country,
-      suburb,
+      location,
       details,
       budget,
-      status,
       tradieId,
-      comments,
     }).save();
 
     return res.status(StatusCodes.OK).json(newPost);
