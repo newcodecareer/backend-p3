@@ -3,7 +3,7 @@ const Comment = require('../models/Comment');
 
 // create comment
 const createNewComment = async (req, res) => {
-  const { text, date, postId, customerId } = req.body;
+  const { text, date, postId, customerId, isAssigned } = req.body;
 
   try {
     const newComment = await Comment({
@@ -11,6 +11,7 @@ const createNewComment = async (req, res) => {
       date,
       postId,
       customerId,
+      isAssigned,
     }).save();
     return res.status(StatusCodes.OK).json(newComment);
   } catch (err) {

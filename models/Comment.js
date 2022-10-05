@@ -23,6 +23,10 @@ const commentSchema = new mongoose.Schema(
       ref: 'Customer',
       required: true,
     },
+    isAssigned: {
+      type: Boolean,
+      required: true,
+    },
   },
   { timestamps: true }
 );
