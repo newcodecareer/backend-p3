@@ -1,19 +1,22 @@
 const { StatusCodes } = require('http-status-codes');
-const skillList = require('../models/skillList');
+const SkillList = require('../models/SkillList');
 
-//POST - create new skill list
+// POST - create new skill list
 
 const createNewSkillList = async (req, res) => {
-  const { category, title, description, price, distance, avaliability } = req.body;
+  const { category, title, description, price, distance, location, availability, customerId } =
+    req.body;
 
   try {
-    const newSkillList = await skillList({
+    const newSkillList = await SkillList({
       category,
       title,
       description,
       price,
       distance,
-      avaliability,
+      location,
+      availability,
+      customerId,
     }).save();
 
     return res.status(StatusCodes.OK).json(newSkillList);
@@ -22,63 +25,70 @@ const createNewSkillList = async (req, res) => {
   }
 };
 
-const getAllNewSkillList = async (req, res) => {
+const getAllSkillLists = async (req, res) => {
   try {
-    const allSkillList = await skillList.find();
-    res.status(200).json({
-      status: 'success',
-      data: {
-        allSkillList,
-      },
-    });
+    const allSkillLists = await SkillList.find();
+    return res.status(StatusCodes.OK).json(allSkillLists);
+    // res.status(200).json({
+    //   status: 'success',
+    //   data: {
+    //     allSkillList,
+    //   },
+    // });
   } catch (err) {
-    res.status(404).json({
-      status: 'fail',
-      message: err,
-    });
+    return res.status(StatusCodes.NOT_FOUND).json(err);
+    // res.status(404).json({
+    //   status: 'fail',
+    //   message: err,
+    // });
   }
 };
 
-const getNewSkillList = async (req, res) => {
+const getSkillListById = async (req, res) => {
+  const { id } = req.params;
   try {
-    const skillLists = await skillList.findById(req.params.id);
-    res.status(200).json({
-      status: 'success',
-      data: {
-        skillLists,
-      },
-    });
+    const skillList = await SkillList.findById(id);
+    return res.status(StatusCodes.OK).json(skillList);
+    // res.status(200).json({
+    //   status: 'success',
+    //   data: {
+    //     skillLists,
+    //   },
+    // });
   } catch (err) {
-    res.status(404).json({
-      status: 'fail',
-      message: err,
-    });
+    return res.status(StatusCodes.NOT_FOUND).json(err);
+    // res.status(404).json({
+    //   status: 'fail',
+    //   message: err,
+    // });
   }
 };
 
-const deleteSkillList = async (req, res) => {
+const deleteSkillListById = async (req, res) => {
+  const { id } = req.params;
   try {
-    await skillList.findByIdAndDelete(req.params.id);
-    res.status(204).json({
-      status: 'success',
-      data: null,
-    });
+    const deletedSkillList = await SkillList.findOneAndDelete({ _id: id });
+    return res.status(StatusCodes.OK).json(deletedSkillList);
+    // res.status(204).json({
+    //   status: 'success',
+    //   data: null,
+    // });
   } catch (err) {
-    res.status(404).json({
-      status: 'fail',
-      message: err,
-    });
+    return res.status(StatusCodes.NOT_FOUND).json(err);
+    // res.status(404).json({
+    //   status: 'fail',
+    //   message: err,
+    // });
   }
 };
 
 const updateSkillListById = async (req, res) => {
   const { id } = req.params;
-  const { category, title, description, price, distance, avaliability } = req.body;
-
+  const { category, title, description, price, distance, location, availability } = req.body;
   try {
-    const updatedSkillList = await skillList.findOneAndUpdate(
+    const updatedSkillList = await SkillList.findOneAndUpdate(
       { _id: id },
-      { category, title, description, price, distance, avaliability },
+      { category, title, description, price, distance, location, availability },
       { new: true }
     );
 
@@ -90,8 +100,8 @@ const updateSkillListById = async (req, res) => {
 
 module.exports = {
   createNewSkillList,
-  getAllNewSkillList,
-  getNewSkillList,
-  deleteSkillList,
+  getAllSkillLists,
+  getSkillListById,
+  deleteSkillListById,
   updateSkillListById,
 };

@@ -15,10 +15,8 @@ const PostSchema = new mongoose.Schema(
       maxLength: 50,
     },
     onDate: {
-      type: String,
+      type: Date,
       required: [true, 'This field is required'],
-      minLength: 3,
-      maxLength: 10,
     },
     location: {
       type: String,
@@ -38,9 +36,10 @@ const PostSchema = new mongoose.Schema(
       min: 1,
       max: 99999,
     },
-    status: {
-      type: String,
-      default: 'OPEN',
+    isActive: {
+      type: Boolean,
+      default: true,
+      required: true,
     },
     tradieId: {
       type: mongoose.Schema.Types.ObjectId,
