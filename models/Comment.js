@@ -9,7 +9,7 @@ const commentSchema = new mongoose.Schema(
     },
     date: {
       type: Date,
-      // default: Date.now,
+      default: Date.now,
     },
     // each comment can only relates to one blog, so it's not in array
     postId: {
