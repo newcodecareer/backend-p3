@@ -1,7 +1,7 @@
 const { StatusCodes } = require('http-status-codes');
 const skillList = require('../models/skillList');
 
-//POST - create new skill list
+// POST - create new skill list
 
 const createNewSkillList = async (req, res) => {
   const { category, title, description, price, distance, avaliability } = req.body;
