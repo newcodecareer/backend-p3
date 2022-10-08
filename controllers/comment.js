@@ -5,7 +5,6 @@ const Comment = require('../models/Comment');
 const createNewComment = async (req, res) => {
   const { text, date, postId, customerId, isAssigned } = req.body;
 
-
   try {
     const newComment = await Comment({
       text,
