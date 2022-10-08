@@ -10,9 +10,57 @@ const {
 
 const customerRouter = Router();
 
+/**
+ * @swagger
+ *  components:
+ *    schemas:
+ *      Customer:
+ *        type: object
+ *        properties:
+ *          firstName:
+ *            type: string
+ *          lastName:
+ *            type: string
+ *          email:
+ *            type: string
+ *          phoneNumber:
+ *            type: string
+ *          address:
+ *            type: string
+ *          password:
+ *            type: string
+ */
+
+/**
+ * @swagger
+ * /v1/customers:
+ *  get:
+ *   summary: Get all customers
+ *   tags:
+ *      - Customers
+ *   description: Customers
+ *   content:
+ *      application/json:
+ *   responses:
+ *    '200':
+ *      description: Get all customers
+ */
 customerRouter.get('/', getAllCustomers);
+
+/**
+ * @swagger
+ *  /v1/customers/{id}:
+ *    get:
+ *      summary: Show a customer
+ *      tags: [Customers]
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *      responses:
+ *        "200":
+ *          description: Show success
+ */
 customerRouter.get('/:id', getCustomerById);
-customerRouter.post('/', createNewCustomer);
 
 /**
  * @swagger
@@ -28,7 +76,7 @@ customerRouter.post('/', createNewCustomer);
  *              $ref: '#/components/schemas/Customer'
  *      responses:
  *        "200":
- *          description: Post new customer success
+ *          description: A user schema
  *          content:
  *            application/json:
  *              schema:
@@ -61,6 +109,20 @@ customerRouter.post('/', createNewCustomer);
  */
 // customerRouter.put('/:id', updateCustomerById);
 customerRouter.patch('/:id', updateCustomerById);
+
+/**
+ * @swagger
+ *  /v1/customers/{id}:
+ *    delete:
+ *      summary: Delete a customer
+ *      tags: [Customers]
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *      responses:
+ *        "200":
+ *          description: Delete success
+ */
 customerRouter.delete('/:id', deleteCustomerById);
 
 module.exports = customerRouter;
