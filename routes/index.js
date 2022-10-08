@@ -15,5 +15,4 @@ v1Router.use('/skillLists', skillListRouter);
 v1Router.use('/posts', postRouter);
 v1Router.use('/comments', commentRouter);
 
-
 module.exports = v1Router;

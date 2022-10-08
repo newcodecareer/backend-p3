@@ -1,6 +1,6 @@
 const { Router } = require('express');
 
-const { getAllPosts, createNewPost, getPostById, updatePostById } = require('../controllers/post');
+const { createNewPost, getPostById, updatePostById, getAllPosts } = require('../controllers/post');
 
 const postRouter = Router();
 
@@ -31,6 +31,20 @@ const postRouter = Router();
 
 /**
  * @swagger
+ *  /v1/posts/{id}:
+ *    get:
+ *      summary: Show a post
+ *      tags: [Posts]
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *      responses:
+ *        "200":
+ *          description: Show success
+ */
+postRouter.get('/:id', getPostById);
+/**
+ * @swagger
  * /v1/posts:
  *  get:
  *   summary: Get all posts
@@ -44,21 +58,6 @@ const postRouter = Router();
  *      description: Get all posts
  */
 postRouter.get('/', getAllPosts);
-
-/**
- * @swagger
- *  /v1/posts/{id}:
- *    get:
- *      summary: Show a post
- *      tags: [Posts]
- *      parameters:
- *        - in: path
- *          name: id
- *      responses:
- *        "200":
- *          description: Show success
- */
-postRouter.get('/:id', getPostById);
 /**
  * @swagger
  *  /v1/posts:
