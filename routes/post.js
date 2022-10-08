@@ -23,7 +23,7 @@ const postRouter = Router();
  *            type: string
  *          budget:
  *            type: string
- *          status:
+ *          isActive:
  *            type: string
  *          tradieId:
  *            type: string
