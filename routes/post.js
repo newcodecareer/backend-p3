@@ -103,18 +103,5 @@ postRouter.post('/', createNewPost);
  *                $ref: '#/components/schemas/Post'
  */
 postRouter.patch('/:id', updatePostById);
-/**
- * @swagger
- *  /v1/posts/{id}:
- *    delete:
- *      summary: Delete a post
- *      tags: [Posts]
- *      parameters:
- *        - in: path
- *          name: id
- *      responses:
- *        "200":
- *          description: Delete success
- */
 
 module.exports = postRouter;

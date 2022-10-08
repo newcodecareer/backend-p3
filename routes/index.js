@@ -11,7 +11,7 @@ const v1Router = express.Router();
 v1Router.use('/users', userRouter);
 v1Router.use('/customers', customerRouter);
 v1Router.use('/auth', authRouter);
-v1Router.use('/skillLists', skillListRouter);
+v1Router.use('/skill-lists', skillListRouter);
 v1Router.use('/posts', postRouter);
 v1Router.use('/comments', commentRouter);
 

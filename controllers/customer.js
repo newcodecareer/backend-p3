@@ -74,8 +74,8 @@ const updateCustomerById = async (req, res) => {
 const deleteCustomerById = async (req, res) => {
   const { id } = req.params;
   try {
-    const deleteCustomer = await Customer.findOneAndDelete({ _id: id });
-    return res.status(StatusCodes.OK).json(deleteCustomer);
+    const deletedCustomer = await Customer.findOneAndDelete({ _id: id });
+    return res.status(StatusCodes.OK).json(deletedCustomer);
   } catch (err) {
     return res.status(StatusCodes.NOT_FOUND).json(err);
   }
