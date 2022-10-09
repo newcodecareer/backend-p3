@@ -1,104 +1,51 @@
 const mongoose = require('mongoose');
 
-const PostSchema = new mongoose.Schema({
-  customerId: {
-    type: String,
-    required: [true, 'This field is required'],
-    trim: true,
-    minLength: 1,
-    maxLength: 50,
+const PostSchema = new mongoose.Schema(
+  {
+    authorId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Customer',
+      required: true,
+    },
+    title: {
+      type: String,
+      required: [true, 'This field is required'],
+      trim: true,
+      minLength: 5,
+      maxLength: 50,
+    },
+    onDate: {
+      type: Date,
+      required: [true, 'This field is required'],
+    },
+    location: {
+      type: String,
+      required: [true, 'This field is required'],
+    },
+    details: {
+      type: String,
+      required: [true, 'This field is required'],
+      trim: true,
+      minLength: 15,
+      maxLength: 200,
+    },
+    budget: {
+      type: Number,
+      required: [true, 'This field is required'],
+      trim: true,
+      min: 1,
+      max: 99999,
+    },
+    isActive: {
+      type: Boolean,
+      required: true,
+    },
+    tradieId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Customer',
+    },
   },
-  title: {
-    type: String,
-    required: [true, 'This field is required'],
-    trim: true,
-    minLength: 5,
-    maxLength: 50,
-  },
-  onDate: {
-    type: String,
-    required: [true, 'This field is required'],
-    trim: false,
-    minLength: 3,
-    maxLength: 10,
-  },
-  beforeDate: {
-    type: String,
-    required: [true, 'This field is required'],
-    trim: false,
-    minLength: 3,
-    maxLength: 10,
-  },
-  flexibleDate: {
-    type: String,
-    required: [true, 'This field is required'],
-    trim: false,
-    minLength: 1,
-    maxLength: 5,
-  },
-  inPerson: {
-    type: String,
-    required: [true, 'This field is required'],
-    trim: false,
-    minLength: 1,
-    maxLength: 5,
-  },
-  online: {
-    type: String,
-    required: [true, 'This field is required'],
-    trim: false,
-    minLength: 1,
-    maxLength: 5,
-  },
-  country: {
-    type: String,
-    required: [true, 'This field is required'],
-    trim: false,
-    minLength: 2,
-    maxLength: 15,
-  },
-  suburb: {
-    type: String,
-    required: [true, 'This field is required'],
-    trim: true,
-    minLength: 5,
-    maxLength: 50,
-  },
-  details: {
-    type: String,
-    required: [true, 'This field is required'],
-    trim: true,
-    minLength: 15,
-    maxLength: 200,
-  },
-  budget: {
-    type: String,
-    required: [true, 'This field is required'],
-    trim: true,
-    minLength: 1,
-    maxLength: 10,
-  },
-  status: {
-    type: String,
-    required: [true, 'This field is required'],
-    trim: true,
-    minLength: 1,
-    maxLength: 10,
-  },
-  tradieId: {
-    type: String,
-    required: [true, 'This field is required'],
-    trim: true,
-    minLength: 1,
-    maxLength: 10,
-  },
-  comments: {
-    type: String,
-    required: [true, 'This field is required'],
-    trim: true,
-    minLength: 1,
-    maxLength: 10,
-  },
-});
+  { timestamps: true }
+);
 
 module.exports = mongoose.model('Post', PostSchema);

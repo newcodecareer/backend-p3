@@ -13,7 +13,7 @@ const signup = async (req, res) => {
     const { firstName, lastName, email, password } = req.body;
     // Validate customer input
     if (!(firstName && lastName && email && password)) {
-      res.status(StatusCodes.BAD_REQUEST).json({ error: 'All input is required' });
+      return res.status(StatusCodes.BAD_REQUEST).json({ error: 'All input is required' });
     }
     // Validate if customer already exist
     const existingCustomer = await Customer.findOne({ email });
@@ -35,7 +35,7 @@ const signup = async (req, res) => {
     //   expiresIn: '2h',
     // });
     const token = generateToken(newCustomer.id, email);
-    console.log(token);
+
     // Save user token
     newCustomer.token = token;
     return res.status(StatusCodes.OK).json({ newCustomer, token });
@@ -59,13 +59,15 @@ const signin = async (req, res) => {
       const token = generateToken(customer.id, email);
       // Save user token
       customer.token = token;
-      res.status(StatusCodes.OK).json({ customer, token });
+
+      return res.status(StatusCodes.OK).json({ customer, token });
     }
     return res.status(StatusCodes.CONFLICT).json({ error: 'Invalid Credentials' });
   } catch (err) {
     return res.status(StatusCodes.NOT_FOUND).json(err);
   }
 };
+
 module.exports = {
   signup,
   signin,

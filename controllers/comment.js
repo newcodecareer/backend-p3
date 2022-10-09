@@ -3,13 +3,14 @@ const Comment = require('../models/Comment');
 
 // create comment
 const createNewComment = async (req, res) => {
-  const { text, post, customer } = req.body;
-
+  const { text, date, postId, customerId, isAssigned } = req.body;
   try {
     const newComment = await Comment({
       text,
-      post,
-      customer,
+      date,
+      postId,
+      customerId,
+      isAssigned,
     }).save();
     return res.status(StatusCodes.OK).json(newComment);
   } catch (err) {
@@ -22,8 +23,18 @@ const createNewComment = async (req, res) => {
 const deleteCommentById = async (req, res) => {
   const { id } = req.params;
   try {
-    const deleteComment = await Comment.findOneAndDelete({ _id: id });
-    return res.status(StatusCodes.OK).json(deleteComment);
+    const deletedComment = await Comment.findOneAndDelete({ _id: id });
+    return res.status(StatusCodes.OK).json(deletedComment);
+  } catch (err) {
+    return res.status(StatusCodes.NOT_FOUND).json(err);
+  }
+};
+
+// Get: all comments
+const getAllComments = async (req, res) => {
+  try {
+    const comments = await Comment.find({});
+    return res.status(StatusCodes.OK).json(comments);
   } catch (err) {
     return res.status(StatusCodes.NOT_FOUND).json(err);
   }
@@ -42,12 +53,13 @@ const getCommentById = async (req, res) => {
   }
 };
 
-// update comment by id
+// PUT: update comment by id
 const updateCommentById = async (req, res) => {
   const { id } = req.params;
+  const { text } = req.body;
   try {
-    const updateComment = await Comment.findOneAndUpdate({ _id: id }, req.body);
-    return res.status(StatusCodes.OK).json(updateComment);
+    const updatedComment = await Comment.findOneAndUpdate({ _id: id }, { text }, { new: true });
+    return res.status(StatusCodes.OK).json(updatedComment);
   } catch (err) {
     return res.status(StatusCodes.NOT_FOUND).json(err);
   }
@@ -56,6 +68,7 @@ const updateCommentById = async (req, res) => {
 module.exports = {
   createNewComment,
   deleteCommentById,
+  getAllComments,
   getCommentById,
   updateCommentById,
 };
