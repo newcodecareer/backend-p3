@@ -35,7 +35,6 @@ const CustomerSchema = new mongoose.Schema(
       // required: [true, 'Please provide address'],
       trim: true,
       minLength: 10,
-      maxLength: 100,
     },
     password: {
       type: String,

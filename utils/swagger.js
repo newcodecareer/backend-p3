@@ -9,5 +9,5 @@ module.exports = swaggerJsDoc({
       description: 'This is the API documentation for Fun Cool Queuing',
     },
   },
-  apis: ['controllers/*.js'],
+  apis: ['routes/*.js', 'models/*.js'],
 });
