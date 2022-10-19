@@ -1,6 +1,6 @@
 const { Router } = require('express');
 
-const { createNewPost, getPostById, updatePostById, getAllPosts } = require('../controllers/post');
+const { createNewPost, getPostById, updatePostById, getAllPosts, deletePostById, } = require('../controllers/post');
 
 const postRouter = Router();
 
@@ -103,5 +103,5 @@ postRouter.post('/', createNewPost);
  *                $ref: '#/components/schemas/Post'
  */
 postRouter.patch('/:id', updatePostById);
-
+postRouter.delete('/:id', deletePostById);
 module.exports = postRouter;
