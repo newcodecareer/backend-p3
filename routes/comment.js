@@ -81,8 +81,6 @@ commentRouter.delete('/:id', deleteCommentById);
  *          description: Show success
  */
 commentRouter.get('/:id', getCommentById);
-commentRouter.get('/', getAllComments);
-commentRouter.put('/:id', updateCommentById);
 
 /**
  * @swagger
@@ -123,7 +121,7 @@ commentRouter.get('/', getAllComments);
  *              schema:
  *                $ref: '#/components/schemas/Comment'
  */
-// commentRouter.put('/:id', updateCommentById);
+
 commentRouter.put('/:id', updateCommentById);
 
 module.exports = commentRouter;
