@@ -101,7 +101,7 @@ customerRouter.post('/', createNewCustomer);
  *              $ref: '#/components/schemas/Customer'
  *      responses:
  *        "200":
- *          description: A customer schema
+ *          description: Update customer success
  *          content:
  *            application/json:
  *              schema:
