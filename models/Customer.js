@@ -42,6 +42,23 @@ const CustomerSchema = new mongoose.Schema(
       trim: true,
       minLength: 8,
     },
+    ABN: {
+      type: String,
+      // required: [true, 'Please input your password'],
+      trim: true,
+    },
+    posts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Post',
+      }
+    ],
+    comments: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comment',
+      }
+    ]
   },
   { timestamps: true }
 );
