@@ -3,13 +3,13 @@ const Comment = require('../models/Comment');
 
 // create comment
 const createNewComment = async (req, res) => {
-  const { text, date, postId, customerId, isAssigned } = req.body;
+  const { text, date, post, customer, isAssigned } = req.body;
   try {
     const newComment = await Comment({
       text,
       date,
-      postId,
-      customerId,
+      post,
+      customer,
       isAssigned,
     }).save();
     return res.status(StatusCodes.OK).json(newComment);
@@ -23,7 +23,10 @@ const createNewComment = async (req, res) => {
 const deleteCommentById = async (req, res) => {
   const { id } = req.params;
   try {
-    const deletedComment = await Comment.findOneAndDelete({ _id: id });
+    const deletedComment = await Comment.findByIdAndDelete( id );
+    if (!deletedComment) {
+      res.status(StatusCodes.NOT_FOUND).json({error: 'comment not found'})
+    }
     return res.status(StatusCodes.OK).json(deletedComment);
   } catch (err) {
     return res.status(StatusCodes.NOT_FOUND).json(err);
@@ -46,7 +49,9 @@ const getCommentById = async (req, res) => {
 
   try {
     const comment = await Comment.findById(id);
-
+    if (!comment) {
+      res.status(StatusCodes.NOT_FOUND).json({error: 'comment not found'})
+    }
     return res.status(StatusCodes.OK).json(comment);
   } catch (err) {
     return res.status(StatusCodes.NOT_FOUND).json(err);
@@ -58,7 +63,10 @@ const updateCommentById = async (req, res) => {
   const { id } = req.params;
   const { text } = req.body;
   try {
-    const updatedComment = await Comment.findOneAndUpdate({ _id: id }, { text }, { new: true });
+    const updatedComment = await Comment.findByIdAndUpdate( id , { text }, { new: true });
+    if (!updatedComment) {
+      res.status(StatusCodes.NOT_FOUND).json({error: 'comment not found'})
+    }
     return res.status(StatusCodes.OK).json(updatedComment);
   } catch (err) {
     return res.status(StatusCodes.NOT_FOUND).json(err);

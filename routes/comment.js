@@ -20,15 +20,14 @@ const commentRouter = Router();
  *            type: string
  *          date:
  *            type: string
- *          postId:
+ *          post:
  *            type: string
  *          commentId:
  *            type: string
  *          isAssigned:
  *            type: string
- *          
+ *
  */
-
 
 /**
  * @swagger

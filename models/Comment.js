@@ -12,17 +12,18 @@ const commentSchema = new mongoose.Schema(
       default: Date.now,
     },
     // each comment can only relates to one blog, so it's not in array
-    postId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Post',
-      required: true,
-    },
-
-    customerId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Customer',
-      required: true,
-    },
+    post: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Post',
+      },
+    ],
+    customer: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Customer',
+      },
+    ],
     isAssigned: {
       type: Boolean,
       required: true,
