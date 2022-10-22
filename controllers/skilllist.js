@@ -87,7 +87,7 @@ const updateSkillListById = async (req, res) => {
   const { category, title, description, price, distance, location, availability } = req.body;
   try {
     const updatedSkillList = await SkillList.findByIdAndUpdate(
-       id ,
+      id,
       { category, title, description, price, distance, location, availability },
       { new: true }
     );
