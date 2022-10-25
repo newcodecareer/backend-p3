@@ -4,7 +4,7 @@ const SkillList = require('../models/skillList');
 // POST - create new skill list
 
 const createNewSkillList = async (req, res) => {
-  const { category, title, description, price, distance, location, availability, customerId } =
+  const { category, title, description, price, distance, location, availability, customer } =
     req.body;
 
   try {
@@ -16,7 +16,7 @@ const createNewSkillList = async (req, res) => {
       distance,
       location,
       availability,
-      customerId,
+      customer,
     }).save();
 
     return res.status(StatusCodes.OK).json(newSkillList);
@@ -86,8 +86,8 @@ const updateSkillListById = async (req, res) => {
   const { id } = req.params;
   const { category, title, description, price, distance, location, availability } = req.body;
   try {
-    const updatedSkillList = await SkillList.findOneAndUpdate(
-      { _id: id },
+    const updatedSkillList = await SkillList.findByIdAndUpdate(
+      id,
       { category, title, description, price, distance, location, availability },
       { new: true }
     );

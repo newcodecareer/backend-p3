@@ -6,6 +6,8 @@ const {
   updateCustomerById,
   getAllCustomers,
   deleteCustomerById,
+  addCustomerWithPost,
+  addCustomerWithComment,
 } = require('../controllers/customer');
 
 const customerRouter = Router();
@@ -124,5 +126,8 @@ customerRouter.patch('/:id', updateCustomerById);
  *          description: Delete success
  */
 customerRouter.delete('/:id', deleteCustomerById);
+
+customerRouter.post('/:id/posts/:postId', addCustomerWithPost);
+customerRouter.post('/:id/comments/:commentId', addCustomerWithComment);
 
 module.exports = customerRouter;

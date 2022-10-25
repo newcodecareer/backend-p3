@@ -5,7 +5,7 @@ const PostSchema = new mongoose.Schema(
     authorId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Customer',
-      required: true,
+      // required: true,
     },
     title: {
       type: String,
@@ -44,6 +44,12 @@ const PostSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Customer',
     },
+    comments: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comment',
+      },
+    ],
   },
   { timestamps: true }
 );
