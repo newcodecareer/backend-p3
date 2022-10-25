@@ -23,9 +23,9 @@ const createNewComment = async (req, res) => {
 const deleteCommentById = async (req, res) => {
   const { id } = req.params;
   try {
-    const deletedComment = await Comment.findByIdAndDelete( id );
+    const deletedComment = await Comment.findByIdAndDelete(id);
     if (!deletedComment) {
-      res.status(StatusCodes.NOT_FOUND).json({error: 'comment not found'})
+      res.status(StatusCodes.NOT_FOUND).json({ error: 'comment not found' });
     }
     return res.status(StatusCodes.OK).json(deletedComment);
   } catch (err) {
@@ -50,7 +50,7 @@ const getCommentById = async (req, res) => {
   try {
     const comment = await Comment.findById(id);
     if (!comment) {
-      res.status(StatusCodes.NOT_FOUND).json({error: 'comment not found'})
+      res.status(StatusCodes.NOT_FOUND).json({ error: 'comment not found' });
     }
     return res.status(StatusCodes.OK).json(comment);
   } catch (err) {
@@ -63,9 +63,9 @@ const updateCommentById = async (req, res) => {
   const { id } = req.params;
   const { text } = req.body;
   try {
-    const updatedComment = await Comment.findByIdAndUpdate( id , { text }, { new: true });
+    const updatedComment = await Comment.findByIdAndUpdate(id, { text }, { new: true });
     if (!updatedComment) {
-      res.status(StatusCodes.NOT_FOUND).json({error: 'comment not found'})
+      res.status(StatusCodes.NOT_FOUND).json({ error: 'comment not found' });
     }
     return res.status(StatusCodes.OK).json(updatedComment);
   } catch (err) {
