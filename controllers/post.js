@@ -37,7 +37,8 @@ const getPostById = async (req, res) => {
   try {
     const post = await Post.findById(id);
     if (!post) {
-      res.status(StatusCodes.NOT_FOUND).json({error: 'post not found'})
+
+      res.status(StatusCodes.NOT_FOUND).json({ error: 'post not found' });
     }
     return res.status(StatusCodes.OK).json(post);
   } catch (err) {
@@ -50,12 +51,12 @@ const updatePostById = async (req, res) => {
   const { title, onDate, location, details, budget, isActive } = req.body;
   try {
     const updatedPost = await Post.findByIdAndUpdate(
-      id ,
+      id,
       { title, onDate, location, details, budget, isActive },
       { new: true }
     );
     if (!updatedPost) {
-      res.status(StatusCodes.NOT_FOUND).json({error: 'post not found'})
+      res.status(StatusCodes.NOT_FOUND).json({ error: 'post not found' });
     }
     return res.status(StatusCodes.OK).json(updatedPost);
   } catch (err) {
@@ -67,9 +68,10 @@ const updatePostById = async (req, res) => {
 const deletePostById = async (req, res) => {
   const { id } = req.params;
   try {
-    const deletePost = await Post.findByIdAndDelete( id );
+
+    const deletePost = await Post.findByIdAndDelete(id);
     if (!deletePost) {
-      res.status(StatusCodes.NOT_FOUND).json({error: 'post not found'})
+      res.status(StatusCodes.NOT_FOUND).json({ error: 'post not found' });
     }
     return res.status(StatusCodes.OK).json(deletePost);
   } catch (err) {
