@@ -71,7 +71,7 @@ const updateCustomerById = async (req, res) => {
       { new: true }
     );
     if (!updatedCustomer) {
-      res.status(StatusCodes.NOT_FOUND).json({ error: 'customer not found' });
+      res.status(StatusCodes.NOT_FOUND).json({error: 'customer not found'})
     }
     return res.status(StatusCodes.OK).json(updatedCustomer);
   } catch (err) {

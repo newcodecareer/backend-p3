@@ -37,6 +37,7 @@ const getPostById = async (req, res) => {
   try {
     const post = await Post.findById(id);
     if (!post) {
+
       res.status(StatusCodes.NOT_FOUND).json({ error: 'post not found' });
     }
     return res.status(StatusCodes.OK).json(post);
@@ -67,6 +68,7 @@ const updatePostById = async (req, res) => {
 const deletePostById = async (req, res) => {
   const { id } = req.params;
   try {
+
     const deletePost = await Post.findByIdAndDelete(id);
     if (!deletePost) {
       res.status(StatusCodes.NOT_FOUND).json({ error: 'post not found' });
