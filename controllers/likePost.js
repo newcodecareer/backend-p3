@@ -3,12 +3,12 @@ const LikePost = require('../models/LikePost');
 
 // like post
 const createLikePost = async (req, res) => {
-  const { postId, customerId, isLiked } = req.body;
+  const { post, customer, isLiked } = req.body;
 
   try {
     const newLikePost = await LikePost({
-      postId,
-      customerId,
+      post,
+      customer,
       isLiked,
     }).save();
     return res.status(StatusCodes.OK).json(newLikePost);

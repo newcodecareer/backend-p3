@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 
 const CustomerSchema = new mongoose.Schema(
@@ -42,8 +43,34 @@ const CustomerSchema = new mongoose.Schema(
       trim: true,
       minLength: 8,
     },
+    ABN: {
+      type: String,
+      // required: [true, 'Please input your password'],
+      trim: true,
+    },
+    posts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Post',
+      },
+    ],
+    comments: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comment',
+
+      },
+    ],
   },
   { timestamps: true }
 );
+
+CustomerSchema.methods.hashPassword = async function () {
+  this.password = await bcrypt.hash(this.password, 12);
+};
+
+CustomerSchema.methods.validatePassword = async function (password) {
+  return bcrypt.compare(password, this.password);
+};
 
 module.exports = mongoose.model('Customer', CustomerSchema);

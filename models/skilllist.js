@@ -50,7 +50,7 @@ const skillListSchema = new mongoose.Schema(
       trim: true,
       required: true,
     },
-    customerId: {
+    customer: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Customer',
       required: true,
