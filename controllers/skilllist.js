@@ -1,5 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
-const SkillList = require('../models/skillList');
+const SkillList = require('../models/SkillList');
 
 // POST - create new skill list
 
