@@ -15,6 +15,8 @@ const commentRouter = Router();
  *    schemas:
  *      Comment:
  *        type: object
+ *        required: 
+ *          - text   
  *        properties:
  *          text:
  *            type: string
@@ -86,14 +88,18 @@ commentRouter.get('/:id', getCommentById);
  * /v1/comments:
  *  get:
  *   summary: Get all comments
- *   tags:
- *      - Comments
- *   description: Comments
+ *   tags: [Comments]
  *   content:
  *      application/json:
  *   responses:
  *    '200':
  *      description: Get all comments
+ *      content: 
+ *        application/json:
+ *          schema:
+ *             type: array
+ *             item:
+ *                $ref: '#/components/schemas/Comments'
  */
 commentRouter.get('/', getAllComments);
 
@@ -104,8 +110,8 @@ commentRouter.get('/', getAllComments);
  *      summary: Update a comment
  *      tags: [Comments]
  *      parameters:
- *        - in: path
- *          name: id
+ *        -  in: path
+ *           name: id
  *      requestBody:
  *        required: true
  *        content:
