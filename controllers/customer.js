@@ -2,6 +2,7 @@ const { StatusCodes } = require('http-status-codes');
 const Comment = require('../models/Comment');
 const Customer = require('../models/Customer');
 const Post = require('../models/Post');
+const SkillList = require('../models/SkillList');
 
 // POST: create new customer
 
@@ -71,7 +72,7 @@ const updateCustomerById = async (req, res) => {
       { new: true }
     );
     if (!updatedCustomer) {
-      res.status(StatusCodes.NOT_FOUND).json({error: 'customer not found'})
+      res.status(StatusCodes.NOT_FOUND).json({ error: 'customer not found' });
     }
     return res.status(StatusCodes.OK).json(updatedCustomer);
   } catch (err) {
@@ -133,10 +134,31 @@ const addCustomerWithComment = async (req, res) => {
   // add comment to customer
   customer = await Customer.findByIdAndUpdate(
     id,
-    { $addToSet: { posts: commentId } },
+    { $addToSet: { comments: commentId } },
     { new: true }
   );
 
+  res.json(customer);
+};
+
+// bind skill list with customer
+const addCustomerWithSkills = async (req, res) => {
+  const { id, skillListId } = req.params;
+  let customer = await Customer.findById(id).exec();
+  const skillList = await SkillList.findById(id).exec();
+
+  if (!customer || !skillList) {
+    res.status(StatusCodes.NOT_FOUND).json({ error: 'This is not found' });
+  }
+  // add customer to skill list.
+  await SkillList.findByIdAndUpdate(id, { $push: { customer: id } }, { new: true });
+
+  // add skill list to customer
+  customer = await Customer.findByIdAndUpdate(
+    id,
+    { $addToSet: { skills: skillListId } },
+    { new: true }
+  );
   res.json(customer);
 };
 
@@ -148,4 +170,5 @@ module.exports = {
   deleteCustomerById,
   addCustomerWithPost,
   addCustomerWithComment,
+  addCustomerWithSkills,
 };
