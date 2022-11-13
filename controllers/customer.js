@@ -1,4 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
+const Joi = require('joi');
 const Comment = require('../models/Comment');
 const Customer = require('../models/Customer');
 const Post = require('../models/Post');
@@ -63,15 +64,27 @@ const getCustomerById = async (req, res) => {
 // PATCH: update piece data for customer
 const updateCustomerById = async (req, res) => {
   const { id } = req.params;
-  const { firstName, lastName, phoneNumber, address, password } = req.body;
+  // const { firstName, lastName, phoneNumber, address, password } = req.body;
+  const schema = Joi.object({
+    firstName: Joi.string().trim().min(2).max(50).required(),
+    lastName: Joi.string().trim().min(2).max(50).required(),
+    email: Joi.string().trim().lowercase().min(2).max(50).required().unique(),
+    phoneNumber: Joi.string().trim().min(10).max(15),
+    address: Joi.string().trim().min(10),
+    password: Joi.string().trim().min(8).required(),
+  });
   try {
+  const { firstName, lastName, phoneNumber, address, password } = await schema.validateAsync(
+    req.body,
+    { allowUnknown: true, stripUnknown: true }
+  );
     const updatedCustomer = await Customer.findByIdAndUpdate(
       id,
       { firstName, lastName, phoneNumber, address, password },
       { new: true }
-    );
+    ).exec();
     if (!updatedCustomer) {
-      res.status(StatusCodes.NOT_FOUND).json({error: 'customer not found'})
+      res.status(StatusCodes.NOT_FOUND).json({ error: 'customer not found' });
     }
     return res.status(StatusCodes.OK).json(updatedCustomer);
   } catch (err) {
@@ -82,7 +95,7 @@ const updateCustomerById = async (req, res) => {
 const deleteCustomerById = async (req, res) => {
   const { id } = req.params;
   try {
-    const deletedCustomer = await Customer.findByIdAndDelete(id);
+    const deletedCustomer = await Customer.findByIdAndDelete(id).exec();
     if (!deletedCustomer) {
       res.status(StatusCodes.NOT_FOUND).json({ error: 'customer not found' });
     }
@@ -101,7 +114,7 @@ const deleteCustomerById = async (req, res) => {
 const addCustomerWithPost = async (req, res) => {
   const { id, postId } = req.params;
   let customer = await Customer.findById(id).exec();
-  const post = await Post.findById(id).exec();
+  const post = await Post.findById(postId).exec();
   // let comment = await Comment.findById(id).exec();
 
   if (!customer || !post) {
@@ -109,10 +122,14 @@ const addCustomerWithPost = async (req, res) => {
   }
 
   // add customer to post.
-  await Post.findByIdAndUpdate(id, { $push: { customer: id } }, { new: true });
+  await Post.findByIdAndUpdate(postId, { $push: { customer: id } }, { new: true }).exec();
 
   // add post to customer
-  customer = await Customer.findByIdAndUpdate(id, { $addToSet: { posts: postId } }, { new: true });
+  customer = await Customer.findByIdAndUpdate(
+    id,
+    { $addToSet: { posts: postId } },
+    { new: true }
+  ).exec();
 
   res.json(customer);
 };
@@ -121,22 +138,75 @@ const addCustomerWithPost = async (req, res) => {
 const addCustomerWithComment = async (req, res) => {
   const { id, commentId } = req.params;
   let customer = await Customer.findById(id).exec();
-  const comment = await Comment.findById(id).exec();
+  const comment = await Comment.findById(commentId).exec();
 
   if (!customer || !comment) {
     res.status(StatusCodes.NOT_FOUND).json({ error: 'This not found' });
   }
 
   // add customer to comment.
-  await Comment.findByIdAndUpdate(id, { $push: { customer: id } }, { new: true });
+  await Comment.findByIdAndUpdate(commentId, { $push: { customer: id } }, { new: true });
 
   // add comment to customer
   customer = await Customer.findByIdAndUpdate(
     id,
-    { $addToSet: { posts: commentId } },
+    { $addToSet: { comments: commentId } },
     { new: true }
   );
 
+  res.json(customer);
+};
+
+// remove customer from posts, comments
+const removeCustomerFromPost = async (req, res) => {
+  const { id, postId } = req.params;
+  let customer = await Customer.findById(id).exec();
+  const post = await Post.findById(id).exec();
+
+  if (!customer || !post) {
+    res.status(StatusCodes.NOT_FOUND).json({ error: 'customer or post not found' });
+    return;
+  }
+  customer = await Customer.findByIdAndUpdate(
+    id,
+    {
+      $pull: {
+        posts: postId,
+      },
+    },
+    { new: true }
+  ).exec();
+  await Post.findByIdAndUpdate(postId, {
+    $pull: {
+      customers: id,
+    },
+  }).exec();
+  res.json(customer);
+};
+
+const removeCustomerFromComment = async (req, res) => {
+  const { id, commentId } = req.params;
+  let customer = await Customer.findById(id).exec();
+  const comment = await Comment.findById(commentId).exec();
+
+  if (!customer || !comment) {
+    res.status(StatusCodes.NOT_FOUND).json({ error: 'customer or comment not found' });
+    return;
+  }
+  customer = await Customer.findByIdAndUpdate(
+    id,
+    {
+      $pull: {
+        comments: commentId,
+      },
+    },
+    { new: true }
+  ).exec();
+  await Comment.findByIdAndUpdate(commentId, {
+    $pull: {
+      customers: id,
+    },
+  }).exec();
   res.json(customer);
 };
 
@@ -148,4 +218,6 @@ module.exports = {
   deleteCustomerById,
   addCustomerWithPost,
   addCustomerWithComment,
+  removeCustomerFromPost,
+  removeCustomerFromComment,
 };

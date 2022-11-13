@@ -1,4 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
+const Joi = require('joi')
 const Comment = require('../models/Comment');
 
 // create comment
@@ -23,7 +24,7 @@ const createNewComment = async (req, res) => {
 const deleteCommentById = async (req, res) => {
   const { id } = req.params;
   try {
-    const deletedComment = await Comment.findByIdAndDelete(id);
+    const deletedComment = await Comment.findByIdAndDelete(id).exec();
     if (!deletedComment) {
       res.status(StatusCodes.NOT_FOUND).json({ error: 'comment not found' });
     }
@@ -36,7 +37,7 @@ const deleteCommentById = async (req, res) => {
 // Get: all comments
 const getAllComments = async (req, res) => {
   try {
-    const comments = await Comment.find({});
+    const comments = await Comment.find({}).exec();
     return res.status(StatusCodes.OK).json(comments);
   } catch (err) {
     return res.status(StatusCodes.NOT_FOUND).json(err);
@@ -48,7 +49,7 @@ const getCommentById = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const comment = await Comment.findById(id);
+    const comment = await Comment.findById(id).exec();
     if (!comment) {
       res.status(StatusCodes.NOT_FOUND).json({ error: 'comment not found' });
     }
@@ -61,9 +62,13 @@ const getCommentById = async (req, res) => {
 // PUT: update comment by id
 const updateCommentById = async (req, res) => {
   const { id } = req.params;
-  const { text } = req.body;
+  // const { text } = req.body;
+  const schema = Joi.object({
+    text: Joi.string().trim().min(2).max(500).required(),
+  });
   try {
-    const updatedComment = await Comment.findByIdAndUpdate(id, { text }, { new: true });
+  const { text } = await schema.validateAsync(req.body, { allowUnknown: true, stripUnknown: true });
+    const updatedComment = await Comment.findByIdAndUpdate(id, { text }, { new: true }).exec();
     if (!updatedComment) {
       res.status(StatusCodes.NOT_FOUND).json({ error: 'comment not found' });
     }

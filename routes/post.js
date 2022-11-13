@@ -6,6 +6,8 @@ const {
   updatePostById,
   getAllPosts,
   deletePostById,
+  addPostWithComment,
+  removePostFromComment,
 } = require('../controllers/post');
 
 const postRouter = Router();
@@ -110,4 +112,6 @@ postRouter.post('/', createNewPost);
  */
 postRouter.patch('/:id', updatePostById);
 postRouter.delete('/:id', deletePostById);
+postRouter.post('/:postId/comments/:commentsId', addPostWithComment);
+postRouter.delete('/:postId/comments/:commentsId', removePostFromComment);
 module.exports = postRouter;

@@ -4,6 +4,8 @@ const commentSchema = new mongoose.Schema(
   {
     text: {
       type: String,
+      minLength: 2,
+      maxLength: 500,
       trim: true,
       required: true,
     },
