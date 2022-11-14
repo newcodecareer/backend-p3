@@ -74,10 +74,10 @@ const updateCustomerById = async (req, res) => {
     password: Joi.string().trim().min(8).required(),
   });
   try {
-  const { firstName, lastName, phoneNumber, address, password } = await schema.validateAsync(
-    req.body,
-    { allowUnknown: true, stripUnknown: true }
-  );
+    const { firstName, lastName, phoneNumber, address, password } = await schema.validateAsync(
+      req.body,
+      { allowUnknown: true, stripUnknown: true }
+    );
     const updatedCustomer = await Customer.findByIdAndUpdate(
       id,
       { firstName, lastName, phoneNumber, address, password },

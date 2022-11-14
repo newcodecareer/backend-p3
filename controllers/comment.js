@@ -1,5 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
-const Joi = require('joi')
+const Joi = require('joi');
 const Comment = require('../models/Comment');
 
 // create comment
@@ -67,7 +67,10 @@ const updateCommentById = async (req, res) => {
     text: Joi.string().trim().min(2).max(500).required(),
   });
   try {
-  const { text } = await schema.validateAsync(req.body, { allowUnknown: true, stripUnknown: true });
+    const { text } = await schema.validateAsync(req.body, {
+      allowUnknown: true,
+      stripUnknown: true,
+    });
     const updatedComment = await Comment.findByIdAndUpdate(id, { text }, { new: true }).exec();
     if (!updatedComment) {
       res.status(StatusCodes.NOT_FOUND).json({ error: 'comment not found' });
