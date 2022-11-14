@@ -6,6 +6,8 @@ const {
   updatePostById,
   getAllPosts,
   deletePostById,
+  addPostWithComment,
+  removePostFromComment,
 } = require('../controllers/post');
 const authGuard = require('../middleware/authGuard');
 
@@ -109,6 +111,12 @@ postRouter.post('/', authGuard, createNewPost);
  *              schema:
  *                $ref: '#/components/schemas/Post'
  */
+
+postRouter.patch('/:id', updatePostById);
+postRouter.delete('/:id', deletePostById);
+postRouter.post('/:postId/comments/:commentId', addPostWithComment);
+postRouter.delete('/:postId/comments/:commentId', removePostFromComment);
 postRouter.patch('/:id', authGuard, updatePostById);
 postRouter.delete('/:id', authGuard, deletePostById);
+
 module.exports = postRouter;
