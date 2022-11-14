@@ -112,6 +112,6 @@ postRouter.post('/', createNewPost);
  */
 postRouter.patch('/:id', updatePostById);
 postRouter.delete('/:id', deletePostById);
-postRouter.post('/:postId/comments/:commentsId', addPostWithComment);
-postRouter.delete('/:postId/comments/:commentsId', removePostFromComment);
+postRouter.post('/:postId/comments/:commentId', addPostWithComment);
+postRouter.delete('/:postId/comments/:commentId', removePostFromComment);
 module.exports = postRouter;

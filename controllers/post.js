@@ -36,7 +36,7 @@ const getPostById = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const post = await Post.findById(id).populate('Comments').exec();
+    const post = await Post.findById(id).populate('comments').exec();
     if (!post) {
       res.status(StatusCodes.NOT_FOUND).json({ error: 'post not found' });
     }
@@ -89,7 +89,7 @@ const addPostWithComment = async (req, res) => {
     res.status(StatusCodes.NOT_FOUND).json({ error: 'This not found' });
   }
 
-  // add customer to comment.
+  // add post to comment.
   await Comment.findByIdAndUpdate(commentId, { $push: { post: postId } }, { new: true });
 
   // add comment to customer
