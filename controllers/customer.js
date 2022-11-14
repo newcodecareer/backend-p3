@@ -208,7 +208,8 @@ const removeCustomerFromComment = async (req, res) => {
     $pull: {
       customers: id,
     },
-  }).exec();
+  }).exec()
+};
 
 // bind skill list with customer
 const addCustomerWithSkills = async (req, res) => {
