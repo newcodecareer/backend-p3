@@ -70,6 +70,7 @@ const deletePostById = async (req, res) => {
   const { id } = req.params;
   try {
     const deletePost = await Post.findByIdAndDelete(id).exec();
+
     if (!deletePost) {
       res.status(StatusCodes.NOT_FOUND).json({ error: 'post not found' });
     }

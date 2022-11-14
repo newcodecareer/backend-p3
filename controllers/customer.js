@@ -3,6 +3,7 @@ const Joi = require('joi');
 const Comment = require('../models/Comment');
 const Customer = require('../models/Customer');
 const Post = require('../models/Post');
+const SkillList = require('../models/SkillList');
 
 // POST: create new customer
 
@@ -157,6 +158,7 @@ const addCustomerWithComment = async (req, res) => {
   res.json(customer);
 };
 
+
 // remove customer from posts, comments
 const removeCustomerFromPost = async (req, res) => {
   const { id, postId } = req.params;
@@ -207,6 +209,26 @@ const removeCustomerFromComment = async (req, res) => {
       customers: id,
     },
   }).exec();
+
+// bind skill list with customer
+const addCustomerWithSkills = async (req, res) => {
+  const { id, skillListId } = req.params;
+  let customer = await Customer.findById(id).exec();
+  const skillList = await SkillList.findById(skillListId).exec();
+
+  if (!customer || !skillList) {
+    res.status(StatusCodes.NOT_FOUND).json({ error: 'This is not found' });
+  }
+  // add customer to skill list.
+  await SkillList.findByIdAndUpdate(id, { $push: { customer: id } }, { new: true });
+
+  // add skill list to customer
+  customer = await Customer.findByIdAndUpdate(
+    id,
+    { $addToSet: { skills: skillListId } },
+    { new: true }
+  );
+
   res.json(customer);
 };
 
@@ -220,4 +242,5 @@ module.exports = {
   addCustomerWithComment,
   removeCustomerFromPost,
   removeCustomerFromComment,
+  addCustomerWithSkills,
 };
