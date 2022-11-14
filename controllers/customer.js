@@ -163,7 +163,7 @@ const addCustomerWithComment = async (req, res) => {
 const removeCustomerFromPost = async (req, res) => {
   const { id, postId } = req.params;
   let customer = await Customer.findById(id).exec();
-  const post = await Post.findById(id).exec();
+  const post = await Post.findById(postId).exec();
 
   if (!customer || !post) {
     res.status(StatusCodes.NOT_FOUND).json({ error: 'customer or post not found' });
@@ -220,7 +220,7 @@ const addCustomerWithSkills = async (req, res) => {
     res.status(StatusCodes.NOT_FOUND).json({ error: 'This is not found' });
   }
   // add customer to skill list.
-  await SkillList.findByIdAndUpdate(id, { $push: { customer: id } }, { new: true });
+  await SkillList.findByIdAndUpdate(skillListId, { $push: { customer: id } }, { new: true });
 
   // add skill list to customer
   customer = await Customer.findByIdAndUpdate(

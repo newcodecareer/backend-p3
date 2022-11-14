@@ -9,7 +9,8 @@ const {
   addCustomerWithPost,
   addCustomerWithComment,
   removeCustomerFromPost,
-  removeCustomerFromComment
+  removeCustomerFromComment,
+  addCustomerWithSkills,
 } = require('../controllers/customer');
 
 const customerRouter = Router();
@@ -132,5 +133,6 @@ customerRouter.post('/:id/posts/:postId', addCustomerWithPost);
 customerRouter.delete('/:id/posts/:postId', removeCustomerFromPost);
 customerRouter.post('/:id/comments/:commentId', addCustomerWithComment);
 customerRouter.delete('/:id/comments/:commentId', removeCustomerFromComment);
+customerRouter.post('/:id/skill-lists/:skillListId', addCustomerWithSkills);
 
 module.exports = customerRouter;
