@@ -7,6 +7,7 @@ const {
   getAllPosts,
   deletePostById,
 } = require('../controllers/post');
+const authGuard = require('../middleware/authGuard');
 
 const postRouter = Router();
 
@@ -84,7 +85,7 @@ postRouter.get('/', getAllPosts);
  *              schema:
  *                $ref: '#/components/schemas/Post'
  */
-postRouter.post('/', createNewPost);
+postRouter.post('/', authGuard, createNewPost);
 /**
  * @swagger
  *  /v1/posts/{id}:
@@ -108,6 +109,6 @@ postRouter.post('/', createNewPost);
  *              schema:
  *                $ref: '#/components/schemas/Post'
  */
-postRouter.patch('/:id', updatePostById);
-postRouter.delete('/:id', deletePostById);
+postRouter.patch('/:id', authGuard, updatePostById);
+postRouter.delete('/:id', authGuard, deletePostById);
 module.exports = postRouter;

@@ -6,6 +6,7 @@ const {
   getAllComments,
   updateCommentById,
 } = require('../controllers/comment');
+const authGuard = require('../middleware/authGuard');
 
 const commentRouter = Router();
 
@@ -49,7 +50,7 @@ const commentRouter = Router();
  *              schema:
  *                $ref: '#/components/schemas/Comment'
  */
-commentRouter.post('/', createNewComment);
+commentRouter.post('/', authGuard, createNewComment);
 
 /**
  * @swagger
@@ -64,7 +65,7 @@ commentRouter.post('/', createNewComment);
  *        "200":
  *          description: Delete success
  */
-commentRouter.delete('/:id', deleteCommentById);
+commentRouter.delete('/:id', authGuard, deleteCommentById);
 
 /**
  * @swagger
@@ -121,6 +122,6 @@ commentRouter.get('/', getAllComments);
  *                $ref: '#/components/schemas/Comment'
  */
 
-commentRouter.put('/:id', updateCommentById);
+commentRouter.put('/:id', authGuard, updateCommentById);
 
 module.exports = commentRouter;
