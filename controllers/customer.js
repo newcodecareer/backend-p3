@@ -67,21 +67,21 @@ const updateCustomerById = async (req, res) => {
   const { id } = req.params;
   // const { firstName, lastName, phoneNumber, address, password } = req.body;
   const schema = Joi.object({
-    firstName: Joi.string().trim().min(2).max(50).required(),
-    lastName: Joi.string().trim().min(2).max(50).required(),
-    email: Joi.string().trim().lowercase().min(2).max(50).required().unique(),
+    firstName: Joi.string().trim().min(2).max(50),
+    lastName: Joi.string().trim().min(2).max(50),
+    email: Joi.string().trim().lowercase().min(2).max(50),
     phoneNumber: Joi.string().trim().min(10).max(15),
     address: Joi.string().trim().min(10),
-    password: Joi.string().trim().min(8).required(),
+    password: Joi.string().trim().min(8),
+    birthday: Joi.string().trim(),
+    ABN: Joi.string().trim(),
   });
   try {
-    const { firstName, lastName, phoneNumber, address, password } = await schema.validateAsync(
-      req.body,
-      { allowUnknown: true, stripUnknown: true }
-    );
+    const { firstName, lastName, phoneNumber, address, password, birthday, ABN } =
+      await schema.validateAsync(req.body, { allowUnknown: true, stripUnknown: true });
     const updatedCustomer = await Customer.findByIdAndUpdate(
       id,
-      { firstName, lastName, phoneNumber, address, password },
+      { firstName, lastName, phoneNumber, address, password, birthday, ABN },
       { new: true }
     ).exec();
     if (!updatedCustomer) {
@@ -158,7 +158,6 @@ const addCustomerWithComment = async (req, res) => {
   res.json(customer);
 };
 
-
 // remove customer from posts, comments
 const removeCustomerFromPost = async (req, res) => {
   const { id, postId } = req.params;
@@ -208,7 +207,7 @@ const removeCustomerFromComment = async (req, res) => {
     $pull: {
       customers: id,
     },
-  }).exec()
+  }).exec();
 };
 
 // bind skill list with customer

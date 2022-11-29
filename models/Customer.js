@@ -48,6 +48,10 @@ const CustomerSchema = new mongoose.Schema(
       // required: [true, 'Please input your password'],
       trim: true,
     },
+    birthday: {
+      type: String,
+      trim: true,
+    },
     posts: [
       {
         type: mongoose.Schema.Types.ObjectId,
