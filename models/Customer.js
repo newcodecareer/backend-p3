@@ -7,15 +7,11 @@ const CustomerSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Please provide first name'],
       trim: true,
-      minLength: 2,
-      maxLength: 50,
     },
     lastName: {
       type: String,
       required: [true, 'Please provide last name'],
       trim: true,
-      minLength: 2,
-      maxLength: 50,
     },
     email: {
       type: String,
@@ -28,14 +24,12 @@ const CustomerSchema = new mongoose.Schema(
       type: String,
       // required: [true, 'Please provide phone number'],
       trim: true,
-      minLength: 10,
-      maxLength: 15,
     },
     address: {
       type: String,
+      default: 'Add your address.',
       // required: [true, 'Please provide address'],
       trim: true,
-      minLength: 10,
     },
     password: {
       type: String,
@@ -45,10 +39,47 @@ const CustomerSchema = new mongoose.Schema(
     },
     ABN: {
       type: String,
+      default: 'Add Your ABN, start to make money.',
       // required: [true, 'Please input your password'],
       trim: true,
     },
-    birthday: {
+    // birthday: {
+    //   default: 'Add Your Birthday here.',
+    //   type: String,
+    //   trim: true,
+    // },
+    birthdayDay: {
+      default: 'Add Your Birthday here.',
+      type: String,
+      trim: true,
+    },
+    birthdayMonth: {
+      default: '',
+      type: String,
+      trim: true,
+    },
+    birthdayYear: {
+      default: '',
+      type: String,
+      trim: true,
+    },
+    skillOne: {
+      default: 'Add Your skills or services.',
+      type: String,
+      trim: true,
+    },
+    skillTwo: {
+      default: '',
+      type: String,
+      trim: true,
+    },
+    skillThree: {
+      default: '',
+      type: String,
+      trim: true,
+    },
+    skillFour: {
+      default: '',
       type: String,
       trim: true,
     },
@@ -66,6 +97,7 @@ const CustomerSchema = new mongoose.Schema(
     ],
     skills: [
       {
+        default: 'Add Your skills or services.',
         type: mongoose.Schema.Types.ObjectId,
         ref: 'SkillList',
       },

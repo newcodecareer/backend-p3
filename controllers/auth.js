@@ -5,7 +5,12 @@ const { generateToken } = require('../utils/jwt');
 const signup = async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
 
-  const customer = new CustomerModel({ firstName, lastName, email, password });
+  const customer = new CustomerModel({
+    firstName,
+    lastName,
+    email,
+    password,
+  });
 
   await customer.hashPassword();
   await customer.save();

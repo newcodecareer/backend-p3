@@ -73,15 +73,48 @@ const updateCustomerById = async (req, res) => {
     phoneNumber: Joi.string().trim().min(10).max(15),
     address: Joi.string().trim().min(10),
     password: Joi.string().trim().min(8),
-    birthday: Joi.string().trim(),
+    birthdayDay: Joi.string().trim(),
+    birthdayMonth: Joi.string().trim(),
+    birthdayYear: Joi.string().trim(),
     ABN: Joi.string().trim(),
+    skillOne: Joi.string().trim(),
+    skillTwo: Joi.string().trim(),
+    skillThree: Joi.string().trim(),
+    skillFour: Joi.string().trim(),
   });
   try {
-    const { firstName, lastName, phoneNumber, address, password, birthday, ABN } =
-      await schema.validateAsync(req.body, { allowUnknown: true, stripUnknown: true });
+    const {
+      firstName,
+      lastName,
+      phoneNumber,
+      address,
+      password,
+      birthdayDay,
+      birthdayMonth,
+      birthdayYear,
+      ABN,
+      skillOne,
+      skillTwo,
+      skillThree,
+      skillFour,
+    } = await schema.validateAsync(req.body, { allowUnknown: true, stripUnknown: true });
     const updatedCustomer = await Customer.findByIdAndUpdate(
       id,
-      { firstName, lastName, phoneNumber, address, password, birthday, ABN },
+      {
+        firstName,
+        lastName,
+        phoneNumber,
+        address,
+        password,
+        birthdayDay,
+        birthdayMonth,
+        birthdayYear,
+        ABN,
+        skillOne,
+        skillTwo,
+        skillThree,
+        skillFour,
+      },
       { new: true }
     ).exec();
     if (!updatedCustomer) {
