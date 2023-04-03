@@ -15,7 +15,7 @@ const PostSchema = new mongoose.Schema(
       maxLength: 50,
     },
     onDate: {
-      type: Date,
+      type: String,
       required: [true, 'This field is required'],
     },
     location: {
